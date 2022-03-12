@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "axios": "^0.26.1",
+    "coingecko-api": "^1.0.10",
+    "fs": "^0.0.1-security",
+    "node-fetch": "^3.2.2"
+  }
+}
