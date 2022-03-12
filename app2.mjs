@@ -1,8 +1,31 @@
+// -------------Imports-------------
+// ---------------------------------
 import axios from 'axios'
 import fetch from "node-fetch"
 import fs from 'fs'
 import CoinGecko from 'coingecko-api'
 
+
+// -------------Constants-------------
+// -----------------------------------
+const CoinGeckoClient = new CoinGecko();
+
+const url = 'https://api.beta.luxor.tech/graphql' //base url
+const apikey = {
+  "Content-Type": "application/json",
+  'x-lux-api-key': 'lxk.5c61ce16498047b29d7535a128395a5a' //api key provided by Luxor
+}
+
+const uid = "technicalchallenge"
+const coin = "BTC"
+const startdate = {"seconds": 0.0,"minutes": 0,"hours": 0,"days": 0,"months": 0,"years": 0}
+const enddate = {"seconds": 0.0,"minutes": 0,"hours": 0,"days": 0,"months": 0,"years": 9}
+
+
+// -------------Functions-------------
+// -----------------------------------
+
+//function used to call Luxor's graphQL API
 async function getCharacters(url,apikey,querymessage) {
     let results = await fetch(url, {
       method: 'POST',
@@ -28,26 +51,18 @@ async function getCharacters(url,apikey,querymessage) {
     //   if (err) throw err;
     //   console.log('Saved!');
     // })
-
 }
 
-const CoinGeckoClient = new CoinGecko();
-
-const url2 = 'https://api.coingecko.com/api/v3'
-const apikey2 = {}
-
-const url = 'https://api.beta.luxor.tech/graphql'
-const apikey = {
-  "Content-Type": "application/json",
-  'x-lux-api-key': 'lxk.5c61ce16498047b29d7535a128395a5a'
+//function used to call CoinGeckoClient's wrapper for the CoinGecko API
+async function coingekofunc() {
+    let characters = await CoinGeckoClient.coins.fetchMarketChart('bitcoin');
+    console.log(characters.data.prices[0])
 }
 
-//const uid = "WyJwcm9maWxlcyIsNDE3Ml0="
-const uid = "technicalchallenge"
-const coin = "BTC"
-const startdate = {"seconds": 0.0,"minutes": 0,"hours": 0,"days": 0,"months": 0,"years": 0}
-const enddate = {"seconds": 0.0,"minutes": 0,"hours": 0,"days": 0,"months": 0,"years": 9}
+// -------------Lurxor API queries----
+// -----------------------------------
 
+//https://docs.luxor.tech/docs/schema/queries/current-profile
 const currentProfile = JSON.stringify({
   query: `{
     currentProfile {
@@ -153,30 +168,8 @@ const getUserMinersStatusCount = JSON.stringify({
   }`,
 })
 
-var func = async() => {
-  let characters = await CoinGeckoClient.coins.fetchMarketChartRange('bitcoin', {
-    from: 1646997058,
-    to: 1646957458,
-  });
-  console.log(characters)
-  console.log(characters.data.prices[0])
-
-  // let [first] = Object.keys(characters.data)
-  // let string = ": " + characters.data.prices.toString() + ", "
-  // console.log(first)
-  // fs.appendFile('data.csv', first, function (err) {
-  //   if (err) throw err;
-  //   console.log('Saved!');
-  // })
-  // fs.appendFile('data.csv', string, function (err) {
-  //   if (err) throw err;
-  //   console.log('Saved!');
-  // })
-
-}
-
-func()
-
+// -------------Lurxor API calls------
+// -----------------------------------
 //getCharacters(url,apikey,currentProfile)
 //getCharacters(url,apikey,user)
 //getCharacters(url,apikey,getRevenuePh)
@@ -186,3 +179,7 @@ func()
 //getCharacters(url,apikey,getProfileHashrate)
 //getCharacters(url,apikey,getPoolEfficiency)
 //getCharacters(url,apikey,getUserMinersStatusCount)
+
+// -------------CoinGeko API calls----
+// -----------------------------------
+coingekofunc()
