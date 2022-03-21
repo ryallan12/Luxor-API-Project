@@ -1,0 +1,23 @@
+This project is broken up into 3 parts.
+1. docker-compose.yaml
+2. postgress web service - javascript
+3. test script - javascript
+
+It's easiest if 3 consoles are used. 
+
+Using VScode open the main "LUXOR - TECHNICAL SALES...." foler, it contains two separate folders. 
+Folder 1 "sales-engineer-...." contains the docker-compose file, which brings up the postgress DB
+Folder 1 "sales-engineer-...." contains the postgress webservice which acts as the intermediary between the test script and the DP
+Folder 2 "Test Project" contains the test script
+
+In Folder 1, in the console type "docker-compose up" to spin up the container containing the postgress database 
+In Folder 1, in a second console type "node api.js" to spin up the web service 
+In Folder 2, in the console type "node app2.mjs" to start the test script 
+
+Once the test script is running follow the instructions prompted into the console
+
+I used a powershell console 
+
+Optional, I used an app called Postman to view the contents of the database. 
+Run a GET command in the app using "http://localhost:3300/sample_table/" to retrieve contents of the database. 
+
